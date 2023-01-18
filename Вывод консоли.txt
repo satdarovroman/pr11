@@ -1,0 +1,62 @@
+Started by GitHub push by satdarovroman
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/test1
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/test1/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/satdarovroman/pr11.git # timeout=10
+Fetching upstream changes from https://github.com/satdarovroman/pr11.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+ > git fetch --tags --progress https://github.com/satdarovroman/pr11.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 65e27a49b77d49a736e0794f9f99c031f87ff873 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 65e27a49b77d49a736e0794f9f99c031f87ff873 # timeout=10
+Commit message: "Update index.html"
+ > git rev-list --no-walk dd9385266884c417d72fb9ca87dccf7edf6b965f # timeout=10
+[test1] $ /bin/sh -xe /tmp/jenkins12021995948596203884.sh
++ whoami
+jenkins
++ cd /tmp/nginx
++ git pull origin master
+From https://github.com/satdarovroman/pr11
+ * branch            master     -> FETCH_HEAD
+Updating dd93852..65e27a4
+Fast-forward
+ index.html | 1 +
+ 1 file changed, 1 insertion(+)
++ docker run -d -p 9889:80 --name nginx --mount type=bind,src=/tmp/nginx,dst=/usr/share/nginx/html/ nginx
+d43e55bd925bfd228dda93287168f63308bd74c1d336312c8e6fa3d4197521bb
++ sleep 5
++ curl -I 51.250.83.76:9889
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0    36    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 OK
+Server: nginx/1.23.3
+Date: Wed, 18 Jan 2023 16:38:03 GMT
+Content-Type: text/html
+Content-Length: 36
+Last-Modified: Wed, 18 Jan 2023 16:37:57 GMT
+Connection: keep-alive
+ETag: "63c82065-24"
+Accept-Ranges: bytes
+
++ curl 51.250.83.76:9889
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100    36  100    36    0     0  41666      0 --:--:-- --:--:-- --:--:-- 36000
++ md5sum /tmp/nginx2/index1.html /tmp/nginx/index.html
+a7e07f2b4953165225b859a0c21b8ed1  /tmp/nginx2/index1.html
+a7e07f2b4953165225b859a0c21b8ed1  /tmp/nginx/index.html
++ docker stop nginx
+nginx
++ docker rm nginx
+nginx
+Finished: SUCCESS
