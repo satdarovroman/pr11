@@ -1,0 +1,10 @@
+whoami
+cd /tmp/nginx
+git pull origin master
+docker run -d -p 9889:80 --name nginx --mount type=bind,src=/tmp/nginx,dst=/usr/share/nginx/html/ nginx
+sleep 5
+curl -I 51.250.83.76:9889
+curl 51.250.83.76:9889 > /tmp/nginx2/index1.html
+md5sum /tmp/nginx2/index1.html /tmp/nginx/index.html
+docker stop nginx
+docker rm nginx
